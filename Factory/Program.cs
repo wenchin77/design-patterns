@@ -7,11 +7,11 @@ namespace Factory
         public abstract ICocktail MixSignalCocktail();
         public string GetSignalCocktail()
         {
-            var product = MixSignalCocktail();
-            return "Here's your " + product.Mix();
+            var drink = MixSignalCocktail();
+            return "Here's your " + drink.GetDrinkName();
         }
     }
-    class bLineByATrain : Bar
+    class BLineByATrain : Bar
     {
         public override ICocktail MixSignalCocktail()
         {
@@ -19,7 +19,7 @@ namespace Factory
         }
     }
 
-    class cParkByATrain : Bar
+    class CParkByATrain : Bar
     {
         public override ICocktail MixSignalCocktail()
         {
@@ -29,12 +29,12 @@ namespace Factory
 
     public interface ICocktail
     {
-        string Mix();
+        string GetDrinkName();
     }
 
     class GinTonic : ICocktail
     {
-        public string Mix()
+        public string GetDrinkName()
         {
             return "Gin and Tonic!";
         }
@@ -42,7 +42,7 @@ namespace Factory
 
     class Margarita : ICocktail
     {
-        public string Mix()
+        public string GetDrinkName()
         {
             return "Margarita!";
         }
@@ -53,10 +53,10 @@ namespace Factory
         public void Main()
         {
             Console.WriteLine("At bar 1...");
-            ClientCode(new bLineByATrain());
+            ClientCode(new BLineByATrain());
 
             Console.WriteLine("At bar 2...");
-            ClientCode(new cParkByATrain());
+            ClientCode(new CParkByATrain());
         }
 
         private void ClientCode(Bar bar)
