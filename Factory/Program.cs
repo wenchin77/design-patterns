@@ -4,64 +4,54 @@ namespace Factory
 {
     abstract class Bar
     {
-        public abstract ICocktail MixSignalCocktail();
-        public string GetSignalCocktail()
+        public abstract IMargarita MixMargarita();
+        public string GetMargarita()
         {
-            var drink = MixSignalCocktail();
+            var drink = MixMargarita();
             return "Here's your " + drink.GetDrinkName();
         }
     }
     class BLineByATrain : Bar
     {
-        public override ICocktail MixSignalCocktail()
-        {
-            return new GinTonic();
-        }
+        public override IMargarita MixMargarita() => new StrongMargarita();
     }
 
     class CParkByATrain : Bar
     {
-        public override ICocktail MixSignalCocktail()
-        {
-            return new Margarita();
-        }
+        public override IMargarita MixMargarita() => new SkinnyMargarita();
     }
 
-    public interface ICocktail
+    public interface IMargarita
     {
         string GetDrinkName();
     }
 
-    class GinTonic : ICocktail
+    class StrongMargarita : IMargarita
     {
-        public string GetDrinkName()
-        {
-            return "Gin and Tonic!";
-        }
+        public string GetDrinkName() => "strong Margarita!";
     }
 
-    class Margarita : ICocktail
+    class SkinnyMargarita : IMargarita
     {
-        public string GetDrinkName()
-        {
-            return "Margarita!";
-        }
+        public string GetDrinkName() => "skinny Margarita!";
     }
 
     class Client
     {
         public void Main()
         {
-            Console.WriteLine("At bar 1...");
+            Console.WriteLine("At B Line by a Train...");
             ClientCode(new BLineByATrain());
 
-            Console.WriteLine("At bar 2...");
+            Console.WriteLine("At C Park by a Train...");
             ClientCode(new CParkByATrain());
         }
 
         private void ClientCode(Bar bar)
         {
-            Console.WriteLine("- Let's order a signal cocktail: " + bar.GetSignalCocktail());
+            Console.WriteLine("- Let's order a margarita");
+            Console.WriteLine($"- {bar.GetMargarita()}");
+            Console.WriteLine();
         }
     }
 
