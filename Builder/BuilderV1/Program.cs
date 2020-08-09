@@ -107,7 +107,7 @@ namespace BuilderV1
         }
         public void SetDescription()
         {
-            _trip.AddDetail($"SUP 活動敘述: {_description}");
+            _trip.AddDetail($"獨木舟活動敘述: {_description}");
         }
         public void SetSalesContext()
         {

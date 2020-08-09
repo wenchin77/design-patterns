@@ -65,55 +65,6 @@ namespace BuilderV2
         }
     }
 
-    public class KayakTripBuilder : ITripBuilder
-    {
-        private Trip _trip;
-        private string _description = "到海上划獨木舟";
-        private string _salesContext = "使用振興券參加獨木舟行程 再折 100 元";
-        public KayakTripBuilder()
-        {
-            _trip = new Trip();
-        }
-        public ITripBuilder SetDestination(string destination)
-        {
-            _trip.SetDestination(destination);
-            return this;
-        }
-        public ITripBuilder SetPrice(int price)
-        {
-            _trip.SetPrice(price);
-            return this;
-        }
-        public ITripBuilder SetDifficulty(int difficulty)
-        {
-            _trip.SetDifficulty(difficulty);
-            return this;
-        }
-        public ITripBuilder SetDurationHours(int hours)
-        {
-            _trip.SetDurationHours(hours);
-            return this;
-        }
-        public ITripBuilder SetMaxParticipants(int maxParticipants)
-        {
-            _trip.SetMaxParticipants(maxParticipants);
-            return this;
-        }
-        public ITripBuilder SetDescription()
-        {
-            _trip.SetDescription(_description);
-            return this;
-        }
-        public ITripBuilder SetSalesContext()
-        {
-            _trip.SetSalesContext(_salesContext);
-            return this;
-        }
-        public Trip Build()
-        {
-            return _trip;
-        }
-    }
     public class Trip
     {
         private string _destination;
@@ -160,7 +111,7 @@ namespace BuilderV2
         public void SetDescription(string description)
         {
             _description = description;
-            _tripDetail.Add($"SUP 活動敘述: {_description}");
+            _tripDetail.Add($"活動敘述: {_description}");
         }
         public void SetSalesContext(string salesContext)
         {
@@ -168,7 +119,6 @@ namespace BuilderV2
             _tripDetail.Add($"【{_salesContext}】");
         }
     }
-
 
     class Program
     {
@@ -207,35 +157,14 @@ namespace BuilderV2
                         .Build();
             PrintTripDetail(trip1);
 
-            Console.WriteLine("Trip 3. 獨木舟 小琉球行程");
-            Trip trip2 = new KayakTripBuilder()
-                        .SetSalesContext()
-                        .SetDestination("小琉球")
-                        .SetPrice(3500)
-                        .SetDifficulty(2)
-                        .SetDurationHours(5)
-                        .SetMaxParticipants(20)
-                        .SetDescription()
-                        .Build();
-            PrintTripDetail(trip2);
-
-            Console.WriteLine("Trip 4. 獨木舟 東澳行程");
-            Trip trip3 = new KayakTripBuilder()
+            Console.WriteLine("Trip 3. SUP 東澳行程");
+            Trip trip2 = new SupTripBuilder()
                         .SetSalesContext()
                         .SetDestination("東澳海蝕洞")
-                        .SetPrice(1500)
-                        .SetDifficulty(3)
-                        .SetDurationHours(4)
+                        .SetPrice(3500)
+                        .SetDifficulty(2)
                         .Build();
-            PrintTripDetail(trip3);
-
-            Console.WriteLine("Trip 5. 獨木舟 龍洞行程");
-            Trip trip4 = new KayakTripBuilder()
-                        .SetSalesContext()
-                        .SetDestination("龍洞")
-                        .SetPrice(1500)
-                        .Build();
-            PrintTripDetail(trip4);
+            PrintTripDetail(trip2);
         }
     }
 }
