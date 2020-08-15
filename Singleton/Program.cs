@@ -7,7 +7,7 @@ namespace Singleton
     {
         private enum SingletonType
         {
-            NonThreadSafe = 1,
+            NotThreadSafe = 1,
             SimpleThreadSafe = 2,
             ThreadSafeWithoutLocks = 3,
             FullyLazyInstantiation = 4,
@@ -16,19 +16,19 @@ namespace Singleton
 
         static void V1BookOnThread1()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 SingletonV1NotThreadSafe webCounter = SingletonV1NotThreadSafe.CounterInstance;
-                Console.WriteLine($"Booking number on web: {webCounter.GetNumber()}");
+                Console.WriteLine($"Booking on web (not thread-safe): {webCounter.GetNumber()}");
             }
         }
 
         static void V1BookOnThread2()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
                 SingletonV1NotThreadSafe appCounter = SingletonV1NotThreadSafe.CounterInstance;
-                Console.WriteLine($"Booking number on app: {appCounter.GetNumber()}");
+                Console.WriteLine($"Booking on app (not thread-safe): {appCounter.GetNumber()}");
             }
         }
 
@@ -37,7 +37,7 @@ namespace Singleton
             NumberGenerator counter = null;
             switch (singletonType)
             {
-                case SingletonType.NonThreadSafe:
+                case SingletonType.NotThreadSafe:
                     counter = SingletonV1NotThreadSafe.CounterInstance;
                     break;
                 case SingletonType.SimpleThreadSafe:
@@ -54,19 +54,19 @@ namespace Singleton
                     break;
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
-                Console.WriteLine($"Booking on {channel} with {singletonType}: {counter.GetNumber()}");
+                Console.WriteLine($"Booking on {channel} with {singletonType} singleton: {counter.GetNumber()}");
             }
         }
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Case 1: booking on the same thread:");
-            MakeBookings(SingletonType.NonThreadSafe, "web");
-            MakeBookings(SingletonType.NonThreadSafe, "app");
+            Console.WriteLine("Case 1: booking on the same thread");
+            MakeBookings(SingletonType.NotThreadSafe, "web");
+            MakeBookings(SingletonType.NotThreadSafe, "app");
 
-            // Console.WriteLine("Case 2: booking on multiple threads (not thread-safe):");
+            // Console.WriteLine("Case 2: booking on multiple threads");
             // Thread t1 = new Thread(V1BookOnThread1);
             // Thread t2 = new Thread(V1BookOnThread2);
             // t1.Start();
