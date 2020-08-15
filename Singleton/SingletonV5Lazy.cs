@@ -2,26 +2,18 @@ using System;
 
 namespace Singleton
 {
-    // Sixth version - using .NET 4's Lazy<T> type
+    // using .NET 4's Lazy<T> type
     class SingletonV5Lazy : NumberGenerator
     {
-        private static SingletonV5Lazy _instance;
-        private static readonly object padlock = new object();
-        private SingletonV5Lazy() { }
+        private static readonly Lazy<SingletonV5Lazy>
+            lazy =
+            new Lazy<SingletonV5Lazy>
+                (() => new SingletonV5Lazy());
 
-        public static SingletonV5Lazy CounterInstance
+        public static SingletonV5Lazy CounterInstance { get { return lazy.Value; } }
+
+        private SingletonV5Lazy()
         {
-            get
-            {
-                lock (padlock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new SingletonV5Lazy();
-                    }
-                    return _instance;
-                }
-            }
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 
 namespace Singleton
 {
-    // Second version - simple thread-safety
     class SingletonV2SimpleThreadSafe : NumberGenerator
     {
         private static SingletonV2SimpleThreadSafe _instance = null;

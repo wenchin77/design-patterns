@@ -3,7 +3,6 @@ using System.Threading;
 
 namespace Singleton
 {
-    // Fourth version - not quite as lazy, but thread-safe without using locks
     class SingletonV3ThreadSafeWithoutLocks : NumberGenerator
     {
         private static SingletonV3ThreadSafeWithoutLocks _instance = new SingletonV3ThreadSafeWithoutLocks();

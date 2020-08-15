@@ -2,7 +2,6 @@
 
 namespace Singleton
 {
-    // First version - not thread-safe
     class SingletonV1NotThreadSafe : NumberGenerator
     {
         // 用靜態欄位初始化 _instance 並不賦予值 (multithread 時會有問題)
