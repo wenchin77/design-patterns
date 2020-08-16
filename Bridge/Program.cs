@@ -13,13 +13,13 @@ namespace Bridge
         {
             if (_datingService.IsEnabled() == true)
             {
-                return "約會服務控制台 - 服務開關 - " + _datingService.DisableProfile();
+                return $"約會服務控制台 - 服務開關 -  {_datingService.DisableProfile()}";
             }
-            return "約會服務控制台 - 服務開關 - " + _datingService.EnableProfile();
+            return $"約會服務控制台 - 服務開關 -  {_datingService.EnableProfile()}";
         }
         public virtual string SetProfile(string profile)
         {
-            return "約會服務控制台 - 設定檔案 - " + _datingService.SetProfile(profile);
+            return $"約會服務控制台 - 設定檔案 - {_datingService.SetProfile(profile)}";
         }
         public virtual string SetMatchLocation(string location)
         {
@@ -32,11 +32,11 @@ namespace Bridge
         public VIPDatingServiceControl(IDatingService datingService) : base(datingService)
         {
         }
-        public override string SetMatchLocation(string location)
+        public string SetAdvancedMatchLocation(string location)
         {
             if (_datingService is DatingApp)
-                return $"VIP 約會服務控制台 - 設定配對地點 - {_datingService.SetMatchLocation(location)} 附近方圓 100 公里";
-            return $"VIP 約會服務控制台 - 設定配對地點 - {_datingService.SetMatchLocation(location)} 附近方圓 50 公里";
+                return $"VIP 約會服務控制台 - 設定進階配對地點 - {_datingService.SetMatchLocation(location)} 附近方圓 100 公里";
+            return $"VIP 約會服務控制台 - 設定進階配對地點 - {_datingService.SetMatchLocation(location)} 附近方圓 50 公里";
         }
     }
 
@@ -99,7 +99,14 @@ namespace Bridge
             Console.WriteLine(control.ToggleProfile());
             var profile = "姓名: 單身狗, 年齡: 26, 性別: 男, 職業: 工程師, 配對性別: 女, 配對年齡: 18-35";
             Console.WriteLine(control.SetProfile(profile));
-            Console.WriteLine(control.SetMatchLocation("內湖"));
+            if (control is VIPDatingServiceControl)
+            {
+                Console.WriteLine((control as VIPDatingServiceControl).SetAdvancedMatchLocation("內湖"));
+            }
+            else
+            {
+                Console.WriteLine(control.SetMatchLocation("內湖"));
+            };
             // Disable profile
             Console.WriteLine(control.ToggleProfile());
             Console.WriteLine();
@@ -128,7 +135,6 @@ namespace Bridge
             Console.WriteLine("[ 使用交友軟體 VIP 版 ]");
             control = new VIPDatingServiceControl(new BlindDateService());
             client.ClientCode(control);
-
         }
     }
 }
