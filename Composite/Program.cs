@@ -73,17 +73,17 @@ namespace Composite
 
     class Client
     {
-        public void ClientCode(Component component)
+        public void Display(Component component)
         {
             Console.WriteLine($"RESULT:{component.Display()}");
         }
-        public void ClientCode2(Component component1, Component component2)
+        public void AddComponent(Component originalComponent, Component addedComponent)
         {
-            if (component1.IsComposite())
+            if (originalComponent.IsComposite())
             {
-                component1.Add(component2);
+                originalComponent.Add(addedComponent);
             }
-            Console.WriteLine($"RESULT:{component1.Display()}");
+            Console.WriteLine($"RESULT:{originalComponent.Display()}");
         }
     }
 
@@ -93,19 +93,20 @@ namespace Composite
         {
             Client client = new Client();
 
-            Console.WriteLine("Client: 把諸多派對元素組合成成一棵樹\n");
+            Console.WriteLine("Client: 把諸多派對元件組合成成一棵樹\n");
             Composite tree = new Composite("生日趴活動");
             Composite branch1 = new Composite("活動進行組");
             branch1.Add(new Leaf("DJ 放歌"));
             branch1.Add(new Leaf("調酒師調酒"));
+            branch1.Add(new Leaf("廚師端蛋糕進場"));
             Composite branch2 = new Composite("活動紀錄組");
             branch2.Add(new Leaf("攝影師拍活動照片"));
             tree.Add(branch1);
             tree.Add(branch2);
-            client.ClientCode(tree);
+            client.Display(tree);
 
-            Console.WriteLine("Client: 添加元素調整樹 (不需要確認原先元素的類別)\n");
-            client.ClientCode2(tree, new Leaf("趴踢工作人員資料紀錄"));
+            Console.WriteLine("Client: 添加元件調整樹 (不需要確認原先元件的類別)\n");
+            client.AddComponent(tree, new Leaf("趴踢工作人員資料紀錄"));
         }
     }
 }
